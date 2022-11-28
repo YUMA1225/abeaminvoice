@@ -1,0 +1,16 @@
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.13.0/ext/bootsnap
+/Users/okamotoyuma/.rbenv/versions/2.6.0/bin/ruby -I /Users/okamotoyuma/.rbenv/versions/2.6.0/lib/ruby/2.6.0 -r ./siteconf20221113-69151-7bo1u2.rb extconf.rb
+creating Makefile
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+ld: warning: -undefined dynamic_lookup may not work with chained fixups
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/bootsnap-1.13.0/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20221113-69151-1hg6h8z/bootsnap

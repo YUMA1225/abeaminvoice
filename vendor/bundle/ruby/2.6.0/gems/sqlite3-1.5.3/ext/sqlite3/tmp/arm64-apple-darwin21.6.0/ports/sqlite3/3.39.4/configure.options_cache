@@ -1,0 +1,1 @@
+["--host=arm64-apple-darwin21.6.0", "--enable-static", "--disable-shared", "--enable-shared=no", "--enable-static=yes", "CC=clang", "CFLAGS=-fPIC -O2", "--prefix=/Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ports/arm64-apple-darwin21.6.0/sqlite3/3.39.4"]

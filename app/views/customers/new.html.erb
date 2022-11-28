@@ -1,0 +1,16 @@
+<h1>Customers#new</h1>
+<p>Find me in app/views/customers/new.html.erb</p>
+
+<%= form_for @customer do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :code %>
+<%= f.text_field :code %>
+
+<%= f.label :manager %>
+<%= f.text_field :manager %>
+
+<%= f.submit %>
+<% end %>

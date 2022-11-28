@@ -1,0 +1,21 @@
+<h1>Home#edit</h1>
+<p>Find me in app/views/home/edit.html.erb</p>
+<%= @user.username %>
+
+<%= form_for @user, url: home_path, local: true do |f| %>
+
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+
+    <%= f.label :company %>
+    <%= f.text_field :company %>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+
+    <%= f.label :account %>
+    <%= f.text_area :account %>
+
+
+    <%= f.submit  %>
+<% end %>

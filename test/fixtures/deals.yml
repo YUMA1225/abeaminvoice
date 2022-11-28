@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  title: MyString
+  price: 1
+  amount: 1
+  tax: 1.5
+
+two:
+  customer_id: 1
+  title: MyString
+  price: 1
+  amount: 1
+  tax: 1.5

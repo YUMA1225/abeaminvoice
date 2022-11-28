@@ -1,0 +1,42 @@
+<h1>Customers#show</h1>
+<p>Find me in app/views/customers/show.html.erb</p>
+
+会社名
+<%= @customer.id %>
+
+会社コード（推奨:ローマ字3文字)
+<%= @customer.code %>
+
+担当
+<%= @customer.manager %>
+
+<%= @customer.user.username %>
+
+<% if @customer.user.id == current_user.id %>
+<%= link_to "編集" , edit_customer_path(@customer), class: 'button is-success'%>
+<%end%>
+
+
+<%= link_to "削除" , customer_path(@customer),method: :delete ,class: "button is-danger", data: {confirm: "会社情報を本当に削除しますか？取引項目も全て復元できなくなります。"} %>
+<%#= link_to  "請求書を作成する" , 1社作成パス  ,class: "button is-primary" %>
+
+
+
+<%= link_to "項目を追加する", new_customer_deal_path(customer_id: @customer.id),class: "button"%>
+
+
+<div class=""></div>
+
+
+<% @customer.deals.each do |deal| %>
+項目
+<%= deal.title %>
+料金（税別)
+<%= deal.price %>
+数量
+<%= deal.amount %>
+税率
+<%= deal.tax %>
+<%= link_to "編集する", edit_customer_deal_path(deal,customer_id: params[:id]),class: "button is-primary"%>
+<%= link_to "削除する", customer_deal_path(deal,customer_id: params[:id]),method: :delete, class: "button is-danger",data: {confirm: '本当に項目を削除しますか？'} %>
+<%end%>

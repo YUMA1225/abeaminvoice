@@ -1,0 +1,44 @@
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ext/sqlite3
+/Users/okamotoyuma/.rbenv/versions/2.6.0/bin/ruby -I /Users/okamotoyuma/.rbenv/versions/2.6.0/lib/ruby/2.6.0 -r ./siteconf20221113-69151-11ckzgw.rb extconf.rb
+Building sqlite3-ruby using packaged sqlite3.
+Extracting sqlite-autoconf-3390400.tar.gz into tmp/arm64-apple-darwin21.6.0/ports/sqlite3/3.39.4... OK
+Running 'configure' for sqlite3 3.39.4... OK
+Running 'compile' for sqlite3 3.39.4... OK
+Running 'install' for sqlite3 3.39.4... OK
+Activating sqlite3 3.39.4 (from /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ports/arm64-apple-darwin21.6.0/sqlite3/3.39.4)...
+checking for whether -L/Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ports/arm64-apple-darwin21.6.0/sqlite3/3.39.4/lib is accepted as LDFLAGS... yes
+checking for whether -lsqlite3 is accepted as LDFLAGS... yes
+checking for whether -lz is accepted as LDFLAGS... yes
+checking for whether -DTAINTING_SUPPORT is accepted as CPPFLAGS... yes
+checking for sqlite3.h... yes
+checking for sqlite3_libversion_number() in -lsqlite3... yes
+checking for rb_proc_arity()... yes
+checking for rb_integer_pack()... yes
+checking for sqlite3_initialize()... yes
+checking for sqlite3_backup_init()... yes
+checking for sqlite3_column_database_name()... no
+checking for sqlite3_enable_load_extension()... yes
+checking for sqlite3_load_extension()... yes
+checking for sqlite3_open_v2()... yes
+checking for sqlite3_prepare_v2()... yes
+checking for sqlite3_int64 in sqlite3.h... yes
+checking for sqlite3_uint64 in sqlite3.h... yes
+creating Makefile
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ext/sqlite3
+make "DESTDIR=" clean
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ext/sqlite3
+make "DESTDIR="
+compiling aggregator.c
+compiling backup.c
+compiling database.c
+compiling exception.c
+compiling sqlite3.c
+compiling statement.c
+linking shared-object sqlite3/sqlite3_native.bundle
+ld: warning: -undefined dynamic_lookup may not work with chained fixups
+
+current directory: /Users/okamotoyuma/rails/abeaminvoice/vendor/bundle/ruby/2.6.0/gems/sqlite3-1.5.3/ext/sqlite3
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 sqlite3_native.bundle ./.gem.20221113-69151-5lis12/sqlite3

@@ -1,0 +1,19 @@
+<h1>Customers#edit</h1>
+<p>Find me in app/views/customers/edit.html.erb</p>
+
+
+<%= form_for @customer do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :code %>
+<%= f.text_field :code %>
+
+<%= f.label :manager %>
+<%= f.text_field :manager %>
+
+<%= f.submit %>
+
+<% end %>
+<%= link_to '戻る', customer_path(params[:id]) %>

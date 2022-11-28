@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Abeaminvoice</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <%end%>
+    <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+    
+    <%= link_to root_path, class: "navbar-item" do %>
+      <h1 class ="title is-4">ワンタップ請求書</h1> 
+    <% end %>
+
+    <% if user_signed_in? %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light"%>
+      <%= link_to "会社一覧", customers_path, class: "button is-warning is-light"%>
+      
+      <%= link_to "マイページ",root_path, class: "button is-warning is-light"%>
+     
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light"%>
+      <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light"%>
+    <% end %>
+    
+
+    <%= yield %>
+  </body>
+</html>
