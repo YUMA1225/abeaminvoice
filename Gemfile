@@ -63,3 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'bulma-rails'
+gem 'rubyXL'
+gem 'prawn'
+gem 'prawn-table'
+gem 'rails_admin'

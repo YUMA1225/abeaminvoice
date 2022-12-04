@@ -4,9 +4,26 @@
 <% if user_signed_in? %>
 <%= link_to "自社情報を編集する", edit_home_path(@user), class: "button is-primary" %>
         
-end
+<div class="has-text-weight-semibold">
+    ユーザー名
+</div>
+<div class="ml-6">
+    <%= @user.username %>
+</div>
+<div class="has-text-weight-semibold">
+    会社名
+</div>
+<div class="ml-6">
+    <%= @user.company %>
+</div>
 
-<%= @user.username %>
+<div class="has-text-weight-semibold">
+    振込先
+</div>
+<div class="ml-6">
+    <%= @user.account %>
+</div>
+
 <% else %>
 <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light"%>
 <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light"%>
