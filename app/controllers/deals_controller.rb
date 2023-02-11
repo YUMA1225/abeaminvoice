@@ -9,12 +9,15 @@ class DealsController < ApplicationController
   def new
     @customer = Customer.find(params[:customer_id])
     @deal = Deal.new
+    if @customer.user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
     
     
   end
 
   def index
-    
+    @customer = Customer.find(params[:customer_id])
   end
 
   def create
@@ -40,11 +43,14 @@ class DealsController < ApplicationController
         dt = DateTime.now
         pdf.text_box '請求日：', size: 5.7,:width=>58.363,:at=>[257.329,684],:align=>:left
         pdf.text_box '請求番号：', size: 5.7,:width=>58.363,:at=>[257.329,674],:align=>:left
-        pdf.text_box @user.company, size: 5.7,:width=>58.363,:at=>[257.329,654],:align=>:left
+        if @user.company != nil
+          pdf.text_box @user.company, size: 5.7,:width=>58.363,:at=>[257.329,654],:align=>:left
+        end
+        ##################################
         pdf.text_box 'MAIL：', size: 5.7,:width=>58.363,:at=>[257.329,644],:align=>:left
         pdf.text_box '担当：', size: 5.7,:width=>58.363,:at=>[257.329,634],:align=>:left
         pdf.text_box dt.strftime("%Y/%m/%d"), size: 5.7,:width=>79.587,:at=>[315.692,684],:align=>:right
-        pdf.text_box dt.strftime("%Y%m%d"), size: 5.7,:width=>79.587,:at=>[315.692,674],:align=>:right
+        pdf.text_box @customer.code+'-'+dt.strftime("%Y%m%d"), size: 5.7,:width=>79.587,:at=>[315.692,674],:align=>:right
         pdf.text_box @user.email, size: 5.7,:width=>79.587,:at=>[315.692,644],:align=>:left
         pdf.text_box @user.username, size: 5.7,:width=>79.587,:at=>[315.692,634],:align=>:left
         pdf.move_down 36
@@ -52,7 +58,10 @@ class DealsController < ApplicationController
         pdf.move_down 2
         pdf.stroke_horizontal_line 0,180
         pdf.move_down 2
-        pdf.text 'ご担当            '+@customer.manager + ' 様',size: 5.7
+        if @customer.manager != nil
+          pdf.text 'ご担当            '+@customer.manager + ' 様',size: 5.7
+        end
+        ####################################
         pdf.move_down 36
         pdf.text '下記の通りご請求申し上げます。',size: 5.7
         pdf.move_down 5
@@ -81,15 +90,18 @@ class DealsController < ApplicationController
           ['','','','','']
         ]
         total=0
-        @customer.deals.each_with_index do |deal,index|
-          deals_list[index][0]=index+1
-          deals_list[index][1]=deal.title
-          deals_list[index][2]=deal.amount
-          deals_list[index][3]=deal.price
-          subtotal=deal.amount*deal.price
-          total += subtotal
-          deals_list[index][4]='¥'+subtotal.to_s(:delimited)
+        if @customer.deals != nil
+          @customer.deals.each_with_index do |deal,index|
+            deals_list[index][0]=index+1
+            deals_list[index][1]=deal.title
+            deals_list[index][2]=deal.amount
+            deals_list[index][3]=deal.price
+            subtotal=deal.amount*deal.price
+            total += subtotal
+            deals_list[index][4]='¥'+subtotal.to_s(:delimited)
+          end
         end
+
         tax =total/10.floor
         payment = total+tax 
         pdf.text '合計金額' ,size: 5.7
@@ -150,9 +162,12 @@ class DealsController < ApplicationController
         }
         pdf.bounding_box([0,287.85],:width=>395.279,:height=>57.9){
           pdf.stroke_bounds
-          @user.account.each_line.with_index  do |str,index|
-            pdf.draw_text str.chomp,:at =>[2,51.25-9.65*index],size: 5.7,valign: :top 
+          if @user.account != nil
+            @user.account.each_line.with_index  do |str,index|
+              pdf.draw_text str.chomp,:at =>[2,51.25-9.65*index],size: 5.7,valign: :top 
+            end
           end
+          ############################
         }
         pdf.bounding_box([0,212],:width=>43.507,:height=>9.65){
           pdf.stroke_bounds
@@ -193,10 +208,15 @@ class DealsController < ApplicationController
         worksheet.add_cell(7,4,@user.company)
         worksheet.add_cell(8,5,@user.email)
         worksheet.add_cell(9,5,@user.username)
+        worksheet.add_cell(4,5,dt.strftime("%Y/%m/%d")).change_horizontal_alignment("right")
+        worksheet.add_cell(5,5, @customer.code+'-'+dt.strftime("%Y%m%d")).change_horizontal_alignment("right")
 
-        @user.account.each_line.with_index  do |str,index|
-          worksheet.add_cell(44+index,1,str.chomp).change_border(:left,'medium')
+        if @user.account != nil
+          @user.account.each_line.with_index  do |str,index|
+            worksheet.add_cell(44+index,1,str.chomp).change_border(:left,'medium')
+          end
         end
+           #############################
         
 
         num = 17
@@ -229,8 +249,15 @@ class DealsController < ApplicationController
   end
 
   def edit
+
     @customer = Customer.find(params[:customer_id])
     @deal = Deal.find(params[:id])
+    if @customer.user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
+    if @deal.customer.user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
   end
 
   def update

@@ -1,35 +1,51 @@
-<h2>Sign up</h2>
-<div class="title m-6">aaa</div>
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        新規登録
+      </h1>
+    </div>
+  </div>
+</section>
 
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+    <%= f.label :username ,'ユーザー名',class: 'label'%>
+    <%= f.text_field :username, autofocus: true, autocomplete: "ユーザー名" ,class:'input'%>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email ,'メールアドレス',class:'label'%>
+    <%= f.email_field :email, autofocus: true, autocomplete: "メールアドレス" ,class:'input'%>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password ,'パスワード',class:'label'%>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    (<%= @minimum_password_length %>文字以上)
+    <% end %>
+    <%= f.password_field :password, autocomplete: "新しいパスワード",class:'input' %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label :password_confirmation ,'パスワードの確認',class:'label'%>
+    <%= f.password_field :password_confirmation, autocomplete: "新しいパスワード" ,class:'input'%>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="actions p-4 columns">
+    <%= f.submit "新規登録" ,class:'button is-success'%>
+    <%= render "devise/shared/links" %>
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+</div>
+</div>
+</div>
+</section>

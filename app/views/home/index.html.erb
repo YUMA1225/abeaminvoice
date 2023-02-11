@@ -1,28 +1,50 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                マイページ
+            </h1>
+        </div>
+    </div>
+</section>
 
 <% if user_signed_in? %>
-<%= link_to "自社情報を編集する", edit_home_path(@user), class: "button is-primary" %>
+       <div class="p-4">
+        <div class="has-text-weight-semibold">
+            ユーザー名
+        </div>
+        <div class="ml-6">
+            <%= @user.username %>
+        </div>
+        <div class="has-text-weight-semibold">
+            会社名
+        </div>
+        <div class="ml-6">
+            <%= @user.company %>
+        </div>
         
-<div class="has-text-weight-semibold">
-    ユーザー名
-</div>
-<div class="ml-6">
-    <%= @user.username %>
-</div>
-<div class="has-text-weight-semibold">
-    会社名
-</div>
-<div class="ml-6">
-    <%= @user.company %>
-</div>
+        <div class="has-text-weight-semibold">
+            振込先
+        </div>
+        <%if @user.account != nil%>
+            <% @user.account.each_line.with_index  do |str,index|%>
+        <div class="ml-6">
+            
+              <%= str.chomp %>
+            </div>
+            <%end%>
+            <%end%>
+         
+       
+        <div class="p-4">
 
-<div class="has-text-weight-semibold">
-    振込先
-</div>
-<div class="ml-6">
-    <%= @user.account %>
-</div>
+        <%= link_to "自社情報を編集する", edit_home_path(@user), class: "button is-info" %>
+        
+
+        </div>
+        
+
+       </div> 
 
 <% else %>
 <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light"%>

@@ -1,19 +1,62 @@
-<h1>Deals#new</h1>
-<p>Find me in app/views/deals/new.html.erb</p>
+
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                新規取引作成
+            </h1>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-6">
 
 <%= form_for [@customer , @deal] do |f| %>
 
-<%= f.label :title %>
-<%= f.text_field :title %>
+<div class="field">
 
-<%= f.label :price %>
-<%= f.text_field :price %>
+        <%= f.label :title, '項目',class: 'label'%>
+    <%= f.text_field :title ,class:'input'%>
 
-<%= f.label :amount %>
-<%= f.text_field :amount %>
+    </div>
+    
+    
 
-<%= f.submit %>
+<div class="field">
+
+
+    <%= f.label :price ,'価格',class: 'label'%>
+    <%= f.text_field :price ,class:'input'%>
+</div>
+
+<div class="field">
+    <%= f.label :amount ,'数量',class:'label'%>
+    <%= f.text_field :amount,class:'input' %>
+    
+
+</div>
+
+<div class="columns p-4 container">
+
+
+    <%=link_to '戻る', customer_path(params[:customer_id]),class: 'button block'%>
+    
+    <%= f.submit '作成',class: 'button is-success ml-4 is-right'%>
+   
+
+
+    
+    
+</div>
+
 <% end %>
+   
 
 
-<%=link_to '戻る', customer_path(params[:customer_id])%>
+            </div>
+        </div>
+    </div>
+</section>

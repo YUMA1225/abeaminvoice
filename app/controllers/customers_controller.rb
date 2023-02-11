@@ -11,7 +11,12 @@ class CustomersController < ApplicationController
   end
 
   def show
+
     @customer = Customer.find(params[:id])
+    if @customer.user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
+
   
   end
 
@@ -56,7 +61,7 @@ class CustomersController < ApplicationController
           pdf.text_box 'MAIL：', size: 5.7,:width=>58.363,:at=>[257.329,644],:align=>:left
           pdf.text_box '担当：', size: 5.7,:width=>58.363,:at=>[257.329,634],:align=>:left
           pdf.text_box dt.strftime("%Y/%m/%d"), size: 5.7,:width=>79.587,:at=>[315.692,684],:align=>:right
-          pdf.text_box dt.strftime("%Y%m%d"), size: 5.7,:width=>79.587,:at=>[315.692,674],:align=>:right
+          pdf.text_box customer.code+'-'+dt.strftime("%Y%m%d"), size: 5.7,:width=>79.587,:at=>[315.692,674],:align=>:right
           pdf.text_box @user.email, size: 5.7,:width=>79.587,:at=>[315.692,644],:align=>:left
           pdf.text_box @user.username, size: 5.7,:width=>79.587,:at=>[315.692,634],:align=>:left
           pdf.move_down 36
@@ -189,7 +194,7 @@ class CustomersController < ApplicationController
         end
 
 # 送信
-        send_data(File.read(@zipfile_name), filename: "請求書pdf.zip")
+        send_data(File.read(@zipfile_name), filename: dt.strftime('%Y%m%d')+"_請求書pdf.zip")
         File.delete(@zipfile_name)
       end
       
@@ -250,6 +255,10 @@ class CustomersController < ApplicationController
           worksheet.add_cell(8,5,@user.email)
           worksheet.add_cell(9,5,@user.username)
 
+          worksheet.add_cell(4,5,dt.strftime("%Y/%m/%d")).change_horizontal_alignment("right")
+          worksheet.add_cell(5,5, customer.code+'-'+dt.strftime("%Y%m%d")).change_horizontal_alignment("right")
+
+
           @user.account.each_line.with_index  do |str,index|
             worksheet.add_cell(44+index,1,str.chomp).change_border(:left,'medium')
           end
@@ -282,7 +291,7 @@ class CustomersController < ApplicationController
         end
 
 # 送信
-        send_data(File.read(@zipfile_name), filename: "請求書xlsx.zip")
+        send_data(File.read(@zipfile_name), filename: dt.strftime('%Y%m%d')+"_請求書xlsx.zip")
         File.delete(@zipfile_name)
         #  send_data workbook.stream.read,
         #   filename: "請求書_"+customer.name+".xlsx".encode(Encoding::Windows_31J)
@@ -294,6 +303,9 @@ class CustomersController < ApplicationController
 
   def edit
     @customer = Customer.find(params[:id])
+    if @customer.user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
   end
 
   def update

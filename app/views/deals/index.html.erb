@@ -1,5 +1,15 @@
-aaa
 
 
-
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <%= @customer.name+'の請求書を出力する' %>
+            </h1>
+            
+    <%= link_to 'Exel出力', customer_deals_path(params[:customer_id],format: :xlsx),method: :create ,data: {confirm: "Exel出力しますか？"}, class: 'button is-primary is-light' %>
+    <%= link_to 'pdf',customer_deals_path(params[:customer_id],format: :pdf),method: :create, class:'button is-danger is-light'%> 
+        </div>
+    </div>
+</section>
 

@@ -1,15 +1,31 @@
-<h1>Customers#index</h1>
-<p>Find me in app/views/customers/index.html.erb</p>
-<%= link_to "新規追加", new_customer_path, class: "button is-primary"%>
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title ">
+                取引先一覧
+            </h1>
+        </div>
+    </div>
+</section>
 
-<% @user.customers.each do |customer| %>
 <div>
-    <%= link_to customer.name,  customer_path(customer)%>
+    <%= link_to 'excel一括出力', customers_path(format: :xlsx),method: :create, data: {confirm: "Exel一括出力しますか？"}, class: 'button is-success' %>
+    <%= link_to 'pdf一括出力', customers_path(format: :pdf),method: :create, data: {confirm: "PDF一括出力しますか？"}, class: 'button is-info' %>
+    
+
+</div>
+
+<div class="card">
+    <% @user.customers.each do |customer| %>
+<div class = 'container p-2 '>
+    <%= link_to customer.name,  customer_path(customer),class: 'content '%>
 </div>
 
 <%#= link_to  "請求書を作成する" , 一括作成パス  ,class: "button is-primary" %>
 
 <% end %>
+</div>
+<%= link_to "新規追加", new_customer_path, class: "button has-text-weight-semibold"%>
 
-<%= link_to '一括出力', customers_path(format: :xlsx),method: :create, data: {confirm: "Exel一括出力しますか？"}, class: 'button is-primary' %>
-<%= link_to 'pdf一括出力', customers_path(format: :pdf),method: :create, data: {confirm: "PDF一括出力しますか？"}, class: 'button is-primary' %>
+
+

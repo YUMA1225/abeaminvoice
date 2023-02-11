@@ -7,7 +7,11 @@ class HomeController < ApplicationController
   end
 
   def edit
+
     @user = User.find(params[:id])
+    if @user.id != current_user.id
+      redirect_to customers_path, alert: '不正なアクセスです' 
+    end
   end
 
   def update

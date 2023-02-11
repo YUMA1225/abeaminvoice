@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :home
   resources :customers do
-    resources :deals
+    resources :deals ,except: [:show]
   end
 
 

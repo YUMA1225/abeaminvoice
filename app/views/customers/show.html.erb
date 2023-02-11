@@ -1,75 +1,115 @@
-<h1>Customers#show</h1>
-<p>Find me in app/views/customers/show.html.erb</p>
 
-会社名
-<%= @customer.id %>
-
-会社コード（推奨:ローマ字3文字)
-<%= @customer.code %>
-
-担当
-<%= @customer.manager %>
-
-
-<% if @customer.user.id == current_user.id %>
-<%= link_to "編集" , edit_customer_path(@customer), class: 'button is-success'%>
-<%end%>
+<section class="hero is-info">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                会社情報
+            </h1>
+        </div>
+    </div>
+</section>
+<div class = 'p-6'>
 
 
-<%= link_to "削除" , customer_path(@customer),method: :delete ,class: "button is-danger", data: {confirm: "会社情報を本当に削除しますか？取引項目も全て復元できなくなります。"} %>
-<%#= link_to  "請求書を作成する" , 1社作成パス  ,class: "button is-primary" %>
+    <div class="card p-4 has-background-info">
+        <div class="columns p-4 is-vcentered">
 
-
-
-<%= link_to "項目を追加する", new_customer_deal_path(customer_id: @customer.id),class: "button"%>
-
-
-<div class="p-1">
-    
-</div>
-<div class="container is-centered">
-    <table border="0" width="100%" >
-        <tr>
-          <th width="20%">項目</th>
-          <th width="20%">料金（税別）</th>
-          <th width="20%">数量</th>
-          <!-- <th width="5%">税率</th> -->
-          <th width="20%"></th> 
-            <th width="20%"></th> 
-        </tr>
-        <% @customer.deals.each do |deal| %>
-        <tr>
-          <td>
-            <%= deal.title %>
-          </td>
-          <td>
-            <%= deal.price %>
-          </td>
-          <td>
-            <%= deal.amount %>
-          </td>
-          <!-- <td>
-            <%= deal.tax %>
-          </td> -->
-          <td>
-            <%= link_to "編集する", edit_customer_deal_path(deal,customer_id: params[:id]),class: "button is-primary is-small"%>
-          </td>
-          <td>
-            <%= link_to "削除する", customer_deal_path(deal,customer_id: params[:id]),method: :delete, class: "button is-danger is-small",data: {confirm: '本当に項目を削除しますか？'} %>
-          </td>
+        <table border="0" width="100%" class="column">
+            <tr>
+                <td  width='70%' class="has-text-weight-semibold has-text-white">
+                    会社名
+                  </td>
+                  <td width='30%' class="has-text-white">
+                    <%= @customer.name  %>
+                  </td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-semibold has-text-white">
+                    会社コード（推奨:ローマ字3文字)
+                  </td>
+                  <td class="has-text-white">
+                    <%= @customer.code %>
+                  </td>
+            </tr>
+            <tr>
+                <td class="has-text-weight-semibold has-text-white">
+                    担当
+                  </td>
+                  <td class="has-text-white">
+                    <%= @customer.manager %>
+                  </td>
+            </tr>
+           
           
-        </tr>
+          
        
+        </table>
+        <div class="column has-text-right">
+            <% if @customer.user.id == current_user.id %>
+       
+            <%= link_to "編集" , edit_customer_path(@customer), class: 'button is-success'%>
+            <%= link_to "削除" , customer_path(@customer),method: :delete ,class: "button is-danger", data: {confirm: "会社情報を本当に削除しますか？取引項目も全て復元できなくなります。"} %>
       
-      
-      <% end %>
-    </table>
+        
+             <%#= link_to  "請求書を作成する" , 1社作成パス  ,class: "button is-primary" %>
+        <%end%>
+
+
+        </div>
+        
+        
+       </div> 
+
+    </div>
+    
+   
+    
+    
+    
+    
+    <div class="p-1">
+        
+    </div>
+    <div class="container is-centered">
+        <table border="0" width="90%" >
+            <tr>
+              <th width="25%">項目</th>
+              <th width="25%">料金（税別）</th>
+              <th width="25%">数量</th>
+              <!-- <th width="5%">税率</th> -->
+              <th width="15%"></th> 
+            </tr>
+            <% @customer.deals.each do |deal| %>
+            <tr>
+              <td>
+                <%= deal.title %>
+              </td>
+              <td>
+                <%= deal.price %>
+              </td>
+              <td>
+                <%= deal.amount %>
+              </td>
+              <!-- <td>
+                <%= deal.tax %>
+              </td> -->
+              <td>
+                <%= link_to "編集する", edit_customer_deal_path(deal,customer_id: params[:id]),class: "button is-success is-small"%>
+                <%= link_to "削除する", customer_deal_path(deal,customer_id: params[:id]),method: :delete, class: "button is-danger is-small",data: {confirm: '本当に項目を削除しますか？'} %>
+              </td>
+             
+              
+            </tr>
+           
+          
+          
+          <% end %>
+        </table>
+    </div>
+    <div class="p-4">
+        <%= link_to "項目を追加する", new_customer_deal_path(customer_id: @customer.id),class: "button has-text-weight-semibold"%>
+    </div>
+    
+    <%= link_to 'Exel出力', customer_deals_path(params[:id],format: :xlsx),method: :create ,data: {confirm: "Exel出力しますか？"}, class: 'button is-info' %>
+    <%= link_to 'pdf',customer_deals_path(params[:id],format: :pdf),method: :create, class:'button is-primary'%> 
 </div>
-
-
-
-<%= link_to 'Exel出力', customer_deals_path(params[:id],format: :xlsx),method: :create ,data: {confirm: "Exel出力しますか？"}, class: 'button is-info' %>
-<%= link_to 'ちゃう', customer_deals_path(params[:id]), data: {confirm: "Exel出力しますか？"}, class: 'btn btn-primary' %>
-全部一括出力は、これをidのfor分で回すボタンを会社一覧画面に
-<%= link_to 'pdf',customer_deals_path(params[:id],format: :pdf),method: :create, class:'button is-primary'%> data:{confirm: 'pdf'},
-プラスPDF出力
